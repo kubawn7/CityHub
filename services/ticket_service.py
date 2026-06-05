@@ -66,13 +66,13 @@ class TicketService:
 
     @staticmethod
     def validate_ticket(ticket_id):
-        # 1. Najpierw sprawdzamy, czy bilet w ogóle istnieje
+
         ticket = next((t for t in tickets if t.ticket_id == ticket_id), None)
         if not ticket:
             print("Nie znaleziono biletu w systemie.")
             return False
             
-        # 2. Sprawdzamy, czy bilet został wykupiony (znajduje się w zamówieniach)
+
         order = next((o for o in orders if o.ticket_id == ticket_id), None)
         if not order:
             print("Odmowa dostępu: Ten bilet nie został sprzedany (jest wciąż w puli).")
@@ -83,12 +83,11 @@ class TicketService:
              print("Odmowa dostępu: Bilet nie został opłacony!")
              return False
 
-        # 3. Sprawdzamy, czy nie został już wykorzystany
+
         if ticket.is_used:
             print("Odmowa dostępu: Bilet został już wykorzystany na bramce!")
             return False
 
-        # Jeśli przeszedł wszystkie testy
         ticket.is_used = True
         print("Bilet poprawny. Witamy na wydarzeniu!")
         return True
